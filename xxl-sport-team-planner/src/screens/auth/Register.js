@@ -15,6 +15,8 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { ref, set } from "firebase/database";
+import { db } from "../../navigation/AppNavigator";
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
@@ -25,7 +27,13 @@ export default function ({ navigation }) {
 
   async function register() {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password).catch(function (
+    await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      set(ref(db, "users/" + userCredential.user.uid), {
+        firstName: "irgendwas",
+        lastName: "irgendwas",
+        email: "irgendwas",
+      });
+    }).catch(function (
       error
     ) {
       // Handle Errors here.

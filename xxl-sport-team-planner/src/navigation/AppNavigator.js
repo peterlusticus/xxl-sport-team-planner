@@ -9,7 +9,7 @@ import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 //Screens
 import Home from "../screens/Home";
-import SecondScreen from "../screens/SecondScreen";
+import Calendar from "../screens/Calendar";
 import About from "../screens/About";
 import Profile from "../screens/Profile";
 import Loading from "../screens/utils/Loading";
@@ -18,6 +18,7 @@ import Login from "../screens/auth/Login";
 import Register from "../screens/auth/Register";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import { AuthContext } from "../provider/AuthProvider";
+import { getDatabase } from "firebase/database";
 
 // Better put your these secret keys in .env file
 const firebaseConfig = {
@@ -31,9 +32,11 @@ const firebaseConfig = {
   measurementId: "G-K9CQVBJV8H"
 };
 
-if (getApps().length === 0) {
+/*if (getApps().length === 0) {
   initializeApp(firebaseConfig);
-}
+}*/
+
+export let db = getDatabase(initializeApp(firebaseConfig));
 
 const AuthStack = createNativeStackNavigator();
 const Auth = () => {
@@ -59,7 +62,7 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="SecondScreen" component={SecondScreen} />
+      <MainStack.Screen name="Calendar" component={Calendar} />
     </MainStack.Navigator>
   );
 };
