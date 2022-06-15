@@ -38,8 +38,6 @@ Simple React Navigation Bottom Nav App and Firebase auth + database using React 
 - Register screen `./src/screens/auth/register.tsx`
 - Forget password screen `./src/screens/auth/forget.tsx`
 
-I personally use these screens on my project [TiktTeng](https://github.com/codingki/TikTeng) in early stages before the redesign, feel free to use these screens ❤️
-
 ## React Navigation Auth Flow
 
 The checking logged users process is inside `./src/provider/AuthProvider` I use React Context, you can add more functions like get the data of the user and store it to the context (better static data, ex: uid)
