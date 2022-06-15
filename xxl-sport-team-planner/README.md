@@ -4,7 +4,9 @@ Simple React Navigation Bottom Nav App and Firebase auth + database using React 
 
 # Preview
 
-![../media/authflow.png](Todo)
+(todo, make screenshots)
+![../media/authflow.png]
+
 
 # Installation
 
