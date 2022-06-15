@@ -1,6 +1,6 @@
-# Template Bottom tabs with auth flow
+# Teams Planner for XXL Sprt Dresden 
 
-Template starter with React Navigation Bottom Tabs and Firebase auth using React Context
+Simple React Navigation Bottom Nav App and Firebase auth + database using React Context
 
 # Preview
 
@@ -12,7 +12,7 @@ Template starter with React Navigation Bottom Tabs and Firebase auth using React
 2. Install Expo
 
    ```jsx
-   npm install --global expo-cli
+   npm install expo-cli
    ```
 
 3. Download this repo
@@ -30,30 +30,7 @@ Template starter with React Navigation Bottom Tabs and Firebase auth using React
 
 # Auth Flow
 
-### Firebase Setup
-
-- Set up a new firebase project
-- Go to Authentication and under Sign-in Method enable Email/Password
-- Fill this firebase config to your config inside `./src/navigation/AppNavigator.js`
-
-```jsx
-// Better put your these secret keys in .env file
-const firebaseConfig = {
-	apiKey: '',
-	authDomain: '',
-	databaseURL: '',
-	projectId: '',
-	storageBucket: '',
-	messagingSenderId: '',
-	appId: '',
-};
-```
-
-and you good to go!
-
-### Prebuilt UI Screens
-
-There are 3 screens included inside `./src/screens/auth` and one more thing its included with the firebase auth function, so you don't need to create the function. The ilustrations I use [undraw](https://undraw.co/)
+## Screens
 
 - Login screen `./src/screens/auth/login.tsx`
 - Register screen `./src/screens/auth/register.tsx`
@@ -61,7 +38,7 @@ There are 3 screens included inside `./src/screens/auth` and one more thing its 
 
 I personally use these screens on my project [TiktTeng](https://github.com/codingki/TikTeng) in early stages before the redesign, feel free to use these screens ❤️
 
-### React Navigation Auth Flow
+## React Navigation Auth Flow
 
 The checking logged users process is inside `./src/provider/AuthProvider` I use React Context, you can add more functions like get the data of the user and store it to the context (better static data, ex: uid)
 
@@ -104,7 +81,3 @@ These are the folders and the functionality
 /src/provider -> for React Context
 /src/screens -> for Screens
 ```
-
-if you find these useful don't forget to give it a star ⭐ and share it to your friends ❤️
-
-Reach me on [twitter](https://twitter.com/kikiding/)
