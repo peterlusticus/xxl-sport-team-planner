@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const AuthContext = createContext();
+const AuthContext = React.createContext();
 const AuthProvider = (props) => {
   const auth = getAuth();
   // user null = loading
@@ -11,7 +11,7 @@ const AuthProvider = (props) => {
     checkLogin();
   }, []);
 
-  function checkLogin() {
+ function checkLogin() {
     onAuthStateChanged(auth, (u) => {
       if (u) {
         setUser(true);
