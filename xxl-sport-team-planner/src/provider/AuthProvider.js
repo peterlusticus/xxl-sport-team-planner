@@ -10,7 +10,7 @@ const AuthProvider = (props) => {
   useEffect(() => {
     checkLogin();
   }, []);
-
+ 
  function checkLogin() {
     onAuthStateChanged(auth, (u) => {
       if (u) {

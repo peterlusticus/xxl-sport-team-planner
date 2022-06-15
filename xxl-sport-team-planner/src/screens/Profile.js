@@ -18,7 +18,7 @@ export default function ({ navigation }) {
 			  var data = snapshot.val();
 			  setUsername(data.firstName + " " + data.lastName);
 			}
-		  });
+		  }); 
 		}
 	  }, [currentUser]);
 	return (
