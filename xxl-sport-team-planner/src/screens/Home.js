@@ -29,7 +29,7 @@ export default function ({ navigation }) {
             <Button
               text="Zum Kalender"
               onPress={() => {
-                navigation.navigate("Calendar");
+                navigation.navigate("Celendar");
               }}
               style={{
                 marginTop: 10,
