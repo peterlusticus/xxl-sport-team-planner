@@ -25,7 +25,7 @@ export default function ({ navigation }) {
         }
         leftAction={() => navigation.goBack()}
       />
-      <View style={{ height: '100%' }}>
+      <View style={{ }}>
         <Agenda
           //Siehe https://github.com/wix/react-native-calendars#agenda
           // The list of items that have to be displayed in agenda. If you want to render item as empty date
