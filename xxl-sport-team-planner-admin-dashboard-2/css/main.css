@@ -12723,3 +12723,9 @@ footer.footer .logo img {
   background-color: hsl(44deg, 100%, 77%);
   border-radius: 9999px;
 }
+
+
+/*Custom CSS*/
+body {
+  overflow: scroll !important; /* Show scrollbars */
+}
