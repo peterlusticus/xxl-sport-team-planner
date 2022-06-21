@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de" style="background-color: #727c8f;">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard - XXL</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/login.js" charset="utf-8"></script>
+</head>
+
+<body style="overflow: hidden !important;">
+    <div class="modal-card" style="width: 500px; margin-top: 20%;">
+        <form id="loginform" onsubmit="return false">
+            <header class="modal-card-head" id="header-of-login">
+                <p class="modal-card-title">Im Admin-Dashboard anmelden</p>
+            </header>
+            <section class="modal-card-body">
+                <div id="errordiv"></div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" style="text-align:left;">E-Mail</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <input class="input" id="tfEmail" type="email" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" style="text-align:left;">Passwort</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <input class="input" id="tfPasswort" type="password" minlength="6" required>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-primary" id="btnLogin"
+                    style="margin-left: auto; margin-right: auto;">Login</button>
+            </footer>
+        </form>
+    </div>
+</body>
+
+</html>
