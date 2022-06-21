@@ -44,9 +44,9 @@ $(document).ready(function () {
 
         //load events from firebase
         firebase.database().ref('courses/' + coursidx + '/events').on('value', (snapshot) => {
+            scheduler.clearAll();
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                scheduler.clearAll();
                 for (let i = 0; i < data.length; i++) {
                     const event = data[i];
                     scheduler.parse([
