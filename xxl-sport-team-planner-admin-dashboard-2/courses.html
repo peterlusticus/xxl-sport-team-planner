@@ -13,6 +13,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/logout.js" charset="utf-8"></script>
+    <script src="js/loadcourses.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -185,124 +191,19 @@
                                         </th>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Company</th>
-                                        <th>City</th>
-                                        <th>Progress</th>
-                                        <th>Created</th>
+                                        <th>Teilnehmerzahl</th>
+                                        <th>Altersklasse</th>
+                                        <th>Erstellt am</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Jonathon Hahn</td>
-                                        <td data-label="Company">Flatley Ltd</td>
-                                        <td data-label="City">Billiemouth</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="74">74</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Dec 30, 2020">Dec 30,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/ryley-wuckert.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Ryley Wuckert</td>
-                                        <td data-label="Company">Heller-Little</td>
-                                        <td data-label="City">Emeraldtown</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="54">54</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Jun 28, 2020">Jun 28,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/sienna-hayes.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Sienna Hayes</td>
-                                        <td data-label="Company">Conn, Jerde and Douglas</td>
-                                        <td data-label="City">Jonathanfort</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="55">55</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Mar 7, 2020">Mar 7,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="climb-cours-table">                                    
                                 </tbody>
                             </table>
+                            <div style="padding:0px 12px 12px 12px">
+                                <button data-target="modal-add-cours" style="width: 100%;" type="button"
+                                    class="button jb-modal">Kurs hinzufügen</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -331,10 +232,9 @@
                                         </th>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Company</th>
-                                        <th>City</th>
-                                        <th>Progress</th>
-                                        <th>Created</th>
+                                        <th>Teilnehmerzahl</th>
+                                        <th>Altersklasse</th>
+                                        <th>Erstellt am</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -352,24 +252,17 @@
                                                     class="is-rounded">
                                             </div>
                                         </td>
-                                        <td data-label="Name">Jonathon Hahn</td>
-                                        <td data-label="Company">Flatley Ltd</td>
-                                        <td data-label="City">Billiemouth</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="74">74</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Dec 30, 2020">Dec 30,
-                                                2020</small>
-                                        </td>
+                                        <td data-label="Name">Bambinos</td>
+                                        <td data-label="Teilnehmerzahl">32</td>
+                                        <td data-label="Altersklasse">7-10</td>
+                                        <td data-label="Erstellt_am">30. Juni 2022</td>
                                         <td class="is-actions-cell">
                                             <div class="buttons is-right">
                                                 <button class="button is-small is-primary" type="button">
                                                     <span class="icon"><i class="mdi mdi-eye"></i></span>
                                                 </button>
                                                 <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
+                                                    data-target="modal-delete" type="button">
                                                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                                                 </button>
                                             </div>
@@ -377,12 +270,15 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div style="padding:0px 12px 12px 12px">
+                                <button style="width: 100%;" type="button" class="button">Kurs hinzufügen</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <div id="sample-modal" class="modal">
+        <div id="modal-delete" class="modal">
             <div class="modal-background jb-modal-close"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -396,6 +292,57 @@
                 <footer class="modal-card-foot">
                     <button class="button jb-modal-close">Cancel</button>
                     <button class="button is-danger jb-modal-close">Delete</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+        </div>
+
+        <div id="modal-add-cours" class="modal">
+            <div class="modal-background jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Kurs hinzufügen</p>
+                    <button class="delete jb-modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label" style="text-align:left;">Kursname</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <input class="input" id="tfKursname" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content:space-between;">
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Altersklasse</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="text" id="tfAltersklasse"
+                                        style="width: 150px; margin-left: 8px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Teilnehmerzahl</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="number" id="tfTeilnehmerzahl">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button jb-modal-close is-primary" id="btnKursHinzufügen"
+                        style="margin-left: auto;">Hinzufügen</button>
                 </footer>
             </div>
             <button class="modal-close is-large jb-modal-close" aria-label="close"></button>

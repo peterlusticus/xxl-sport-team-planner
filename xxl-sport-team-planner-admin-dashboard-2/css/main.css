@@ -12675,10 +12675,6 @@ section.section.is-main-section {
   padding: 1.5rem;
 }
 
-.modal-card {
-  width: 40vw;
-}
-
 .modal-card-foot {
   background-color: hsl(0deg, 0%, 96%);
 }
@@ -12728,4 +12724,11 @@ footer.footer .logo img {
 /*Custom CSS*/
 body {
   overflow: scroll !important; /* Show scrollbars */
+}
+
+.custom-section-1{
+  display: flex;
+  justify-content : space-between;
+  align-items : stretch;
+  width: 100%;
 }

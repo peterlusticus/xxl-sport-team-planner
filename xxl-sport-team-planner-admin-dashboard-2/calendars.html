@@ -13,9 +13,16 @@
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/logout.js" charset="utf-8"></script>
+  <script src="js/dhtmlxscheduler.js" charset="utf-8"></script>
+  <script src="js/loadcalendar.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="css/dhtmlxscheduler_material.css" type="text/css" charset="utf-8">
 </head>
-<script src="js/dhtmlxscheduler.js" charset="utf-8"></script>
-<link rel="stylesheet" href="css/dhtmlxscheduler_material.css" type="text/css" charset="utf-8">
+
 
 <style type="text/css">
   html,
@@ -26,30 +33,6 @@
     overflow: hidden;
   }
 </style>
-
-
-<script charset="utf-8">
-  function init() {
-    scheduler.plugins({
-      recurring: true,
-    });
-    scheduler.config.prevent_cache = true;
-
-    scheduler.config.details_on_create = true;
-    scheduler.config.details_on_dblclick = true;
-    scheduler.config.occurrence_timestamp_in_utc = true;
-    scheduler.config.include_end_by = true;
-    scheduler.config.repeat_precise = true;
-
-    scheduler.init('scheduler_here', new Date(2018, 9, 28), "month");
-    scheduler.load("/scheduler/backend/recurring_events");
-
-    var dp = scheduler.createDataProcessor({
-      url: "/scheduler/backend/recurring_events",
-      mode: "REST"
-    });
-  }
-</script>
 
 <body onload="init();">
   <div id="app">
@@ -195,19 +178,49 @@
       </div>
     </section>
     <section class="section is-main-section">
-      <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:600px;'>
-        <div class="dhx_cal_navline">
-          <div class="dhx_cal_prev_button">&nbsp;</div>
-          <div class="dhx_cal_next_button">&nbsp;</div>
-          <div class="dhx_cal_today_button"></div>
-          <div class="dhx_cal_date"></div>
-          <div class="dhx_cal_tab" data-tab="day" style="right:204px;"></div>
-          <div class="dhx_cal_tab" data-tab="week" style="right:140px;"></div>
-          <div class="dhx_cal_tab" data-tab="month" style="right:76px;"></div>
+      <div class="custom-section-1">
+        <div style="width: 30%;">
+          <div class="card has-table">
+            <header class="card-header">
+              <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                Kursauswahl
+              </p>
+              <a href="#" class="card-header-icon">
+                <span class="icon"><i class="mdi mdi-reload"></i></span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="b-table has-pagination">
+                <div class="table-wrapper has-mobile-cards">
+                  <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                    <tbody id="calendar-cours-table">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dhx_cal_header">
-        </div>
-        <div class="dhx_cal_data">
+        <div style="width: 68%;">
+          <div class="card has-table">
+            <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:600px; margin: 2px;'>
+              <div class="dhx_cal_navline">
+                <div class="dhx_cal_prev_button">&nbsp;</div>
+                <div class="dhx_cal_next_button">&nbsp;</div>
+                <div class="dhx_cal_today_button"></div>
+                <div class="dhx_cal_date"></div>
+                <div class="dhx_cal_tab" data-tab="day" style="right:204px;"></div>
+                <div class="dhx_cal_tab" data-tab="week" style="right:140px;"></div>
+                <div class="dhx_cal_tab" data-tab="month" style="right:76px;"></div>
+              </div>
+              <div class="dhx_cal_header">
+              </div>
+              <div class="dhx_cal_data">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
