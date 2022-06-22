@@ -20,27 +20,48 @@ $(document).ready(function () {
 
     //signIN function
     $("#btnLogin").click(function () {
-            const mail=$("#tfEmail").val();
-            const password=$("#tfPasswort").val()
-            console.log(mail)
-
-            const promise = auth.signInWithEmailAndPassword(mail, password);
-            promise.catch(e => {
-                $("#errordiv").append('<div class="notification" style="margin-bottom: 25px; background: lightcoral; padding: 1rem 1rem 1rem 1rem;"> <div class="level"> <div> <p>'+e.message+'</p> </div> </div> </div>')
-            });
+        const mail = $("#tfEmail").val();
+        const password = $("#tfPasswort").val()
+        const promise = auth.signInWithEmailAndPassword(mail, password);
+        promise.catch(e => {
+            $("#errordiv").append('<div class="notification" style="margin-bottom: 25px; background: lightcoral; padding: 1rem 1rem 1rem 1rem;"> <div class="level"> <div> <p>' + e.message + '</p> </div> </div> </div>')
+        });
     })
 
+    //Signup
+    $("#btnRegister").click(function () {
+        const mail = $("#tfEmail").val();
+        const password = $("#tfPasswort").val()
 
+        const promise = auth.createUserWithEmailAndPassword(mail, password).then((val) => {
+            console.log(val.user.uid)
+            const name = $("#tfName").val();
+            const vorname = $("#tfVorname").val()
+            firebase.database().ref('adminuser/' + val.user.uid).set({
+                name: name,
+                vorname: vorname
+            });
+        });
+        promise.catch(e => {
+            $("#errordiv").append('<div class="notification" style="margin-bottom: 25px; background: lightcoral; padding: 1rem 1rem 1rem 1rem;"> <div class="level"> <div> <p>' + e.message + '</p> </div> </div> </div>')
+        });
+    })
+
+    //Logout
     $("#btnAbmelden").click(function () {
         auth.signOut();
-      })
+    })
 
     //active user to homepage
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            var email = user.email;
-            window.location.href="home.html"
-        } else {
+            firebase.database().ref('adminuser/').once('value').then(function (snapshot) {
+                if (snapshot.exists()) {
+                    if (Object(snapshot.val()).hasOwnProperty(user.uid)) {
+                        window.location.href = "home.html"
+                    }
+                }
+            });
         }
     })
 
