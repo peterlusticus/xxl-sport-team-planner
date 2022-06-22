@@ -10,12 +10,26 @@ function init() {
     scheduler.config.occurrence_timestamp_in_utc = true;
     scheduler.config.include_end_by = true;
     scheduler.config.repeat_precise = true;
+    scheduler.config.lightbox.sections = [	
+        {name:"description", height:50, map_to:"text", type:"textarea" , focus:true},
+        {name:"recurring", height:21, type:"select", map_to:"rec_type", options:[
+            {key:"", label:"Nicht wiederholen"},
+            {key:"day", label:"Täglich"},
+            {key:"week", label:"Wöchentlich"},
+            {key:"month", label:"Monatlich"}
+        ]},
+        {name:"Trainer", height:30, map_to:"trainer", type:"select", options:[
+            {key:1, label:"Rüdiger"},
+            {key:2, label:"Bob"},
+            {key:3, label:"Werner"}
+        ]},
+        {name:"time", height:72, type:"time", map_to:"auto"}	
+    ];
 
     scheduler.init('scheduler_here', new Date(), "month");
 }
 
 $(document).ready(function () {
-
     //load courses
     firebase.database().ref('courses').on('value', (snapshot) => {
         if (snapshot.exists()) {
@@ -50,7 +64,7 @@ $(document).ready(function () {
                 for (let i = 0; i < data.length; i++) {
                     const event = data[i];
                     scheduler.parse([
-                        { text: event.text, start_date: event.start_date, end_date: event.end_date },
+                        { text: event.text, start_date: event.start_date, end_date: event.end_date, trainer: event.trainer },
                     ], "json");
                 }
             }
@@ -74,7 +88,8 @@ $(document).ready(function () {
                     firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events/' + event_num).set({
                         text: data.text,
                         start_date: data.start_date,
-                        end_date: data.end_date
+                        end_date: data.end_date,
+                        trainer: data.trainer
                     });
                 });
 

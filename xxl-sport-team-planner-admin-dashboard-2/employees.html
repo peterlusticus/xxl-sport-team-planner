@@ -15,8 +15,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/logout.js" charset="utf-8"></script>
+    <script src="js/loademployees.js" charset="utf-8"></script>
+
 </head>
 
 <body>
@@ -34,7 +37,8 @@
             </div>
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
-                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                    <div
+                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
                         <a class="navbar-link is-arrowless">
                             <div class="is-user-avatar">
                                 <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
@@ -76,9 +80,9 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label" style="height: 45px;">
-                  <img style="max-height: 100%;padding-top: 8px;padding-left: 40px;" src="img/logo-xxl.png">
+                    <img style="max-height: 100%;padding-top: 8px;padding-left: 40px;" src="img/logo-xxl.png">
                 </div>
-              </div>
+            </div>
             <div class="menu is-menu-main">
                 <p class="menu-label">Allgemein</p>
                 <ul class="menu-list">
@@ -163,7 +167,7 @@
             </div>
         </section>
         <section class="section is-main-section">
-            <div class="card has-table">
+            <div class="card has-table" id="trainer-table-wrapper">
                 <header class="card-header">
                     <p class="card-header-title">
                         <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
@@ -179,137 +183,23 @@
                             <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </th>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Company</th>
-                                        <th>City</th>
-                                        <th>Progress</th>
-                                        <th>Created</th>
+                                        <th>Sportart</th>
+                                        <th>Aktuellle Kurse</th>
+                                        <th>Verhältnis</th>
+                                        <th>Gehalt</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Jonathon Hahn</td>
-                                        <td data-label="Company">Flatley Ltd</td>
-                                        <td data-label="City">Billiemouth</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="74">74</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Dec 30, 2020">Dec 30,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/ryley-wuckert.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Ryley Wuckert</td>
-                                        <td data-label="Company">Heller-Little</td>
-                                        <td data-label="City">Emeraldtown</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="54">54</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Jun 28, 2020">Jun 28,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/sienna-hayes.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Sienna Hayes</td>
-                                        <td data-label="Company">Conn, Jerde and Douglas</td>
-                                        <td data-label="City">Jonathanfort</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="55">55</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Mar 7, 2020">Mar 7,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="trainer-table">
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card has-table">
+            <div class="card has-table" id="employee-table-wrapper">
                 <header class="card-header">
                     <p class="card-header-title">
                         <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
@@ -325,58 +215,15 @@
                             <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </th>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Company</th>
-                                        <th>City</th>
-                                        <th>Progress</th>
-                                        <th>Created</th>
+                                        <th>Bereich</th>
+                                        <th>Verhältnis</th>
+                                        <th>Gehalt</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Jonathon Hahn</td>
-                                        <td data-label="Company">Flatley Ltd</td>
-                                        <td data-label="City">Billiemouth</td>
-                                        <td data-label="Progress" class="is-progress-cell">
-                                            <progress max="100" class="progress is-small is-primary"
-                                                value="74">74</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small class="has-text-grey is-abbr-like" title="Dec 30, 2020">Dec 30,
-                                                2020</small>
-                                        </td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="sample-modal" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="employees-table">
                                 </tbody>
                             </table>
                         </div>

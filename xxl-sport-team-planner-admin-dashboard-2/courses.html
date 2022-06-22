@@ -196,11 +196,11 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody id="climb-cours-table">
+                                <tbody id="cours-table-klettern">
                                 </tbody>
                             </table>
                             <div style="padding:0px 12px 12px 12px">
-                                <button data-target="modal-add-cours" style="width: 100%;" type="button"
+                                <button data-target="modal-add-cours-klettern" style="width: 100%;" type="button"
                                     class="button jb-modal">Kurs hinzufügen</button>
                             </div>
                         </div>
@@ -237,40 +237,12 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="is-checkbox-cell">
-                                            <label class="b-checkbox checkbox">
-                                                <input type="checkbox" value="false">
-                                                <span class="check"></span>
-                                            </label>
-                                        </td>
-                                        <td class="is-image-cell">
-                                            <div class="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg"
-                                                    class="is-rounded">
-                                            </div>
-                                        </td>
-                                        <td data-label="Name">Bambinos</td>
-                                        <td data-label="Teilnehmerzahl">32</td>
-                                        <td data-label="Altersklasse">7-10</td>
-                                        <td data-label="Erstellt_am">30. Juni 2022</td>
-                                        <td class="is-actions-cell">
-                                            <div class="buttons is-right">
-                                                <button class="button is-small is-primary" type="button">
-                                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button class="button is-small is-danger jb-modal"
-                                                    data-target="modal-delete" type="button">
-                                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="cours-table-bouldern">
                                 </tbody>
                             </table>
                             <div style="padding:0px 12px 12px 12px">
-                                <button style="width: 100%;" type="button" class="button">Kurs hinzufügen</button>
+                                <button data-target="modal-add-cours-bouldern" style="width: 100%;" type="button"
+                                    class="button jb-modal">Kurs hinzufügen</button>
                             </div>
                         </div>
                     </div>
@@ -296,7 +268,7 @@
             <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
         </div>
 
-        <div id="modal-add-cours" class="modal">
+        <div id="modal-add-cours-klettern" class="modal">
             <div class="modal-background jb-modal-close"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -310,7 +282,7 @@
                         </div>
                         <div class="field-body">
                             <div class="field">
-                                <input class="input" id="tfKursname" type="text">
+                                <input class="input" id="tfKursnameKlettern" type="text">
                             </div>
                         </div>
                     </div>
@@ -321,7 +293,7 @@
                             </div>
                             <div class="field-body">
                                 <div class="field">
-                                    <input class="input" type="text" id="tfAltersklasse"
+                                    <input class="input" type="text" id="tfAltersklasseKlettern"
                                         style="width: 150px; margin-left: 8px;">
                                 </div>
                             </div>
@@ -332,7 +304,7 @@
                             </div>
                             <div class="field-body">
                                 <div class="field">
-                                    <input class="input" type="number" id="tfTeilnehmerzahl">
+                                    <input class="input" type="number" id="tfTeilnehmerzahlKlettern">
                                 </div>
                             </div>
                         </div>
@@ -340,7 +312,58 @@
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button jb-modal-close">Cancel</button>
-                    <button class="button jb-modal-close is-primary" id="btnKursHinzufügen"
+                    <button class="button jb-modal-close is-primary" id="btnKursHinzufügenKlettern"
+                        style="margin-left: auto;">Hinzufügen</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+        </div>
+
+        <div id="modal-add-cours-bouldern" class="modal">
+            <div class="modal-background jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Kurs hinzufügen</p>
+                    <button class="delete jb-modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label" style="text-align:left;">Kursname</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <input class="input" id="tfKursnameBouldern" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content:space-between;">
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Altersklasse</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="text" id="tfAltersklasseBouldern"
+                                        style="width: 150px; margin-left: 8px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Teilnehmerzahl</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="number" id="tfTeilnehmerzahlBouldern">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button jb-modal-close is-primary" id="btnKursHinzufügenBouldern"
                         style="margin-left: auto;">Hinzufügen</button>
                 </footer>
             </div>

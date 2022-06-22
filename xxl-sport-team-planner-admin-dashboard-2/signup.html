@@ -46,12 +46,44 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label" style="text-align:left;">Passwort wiederholen</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <input class="input" id="tfPasswortWiederholung" type="password" minlength="6" required>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content:space-between;">
+                    <div class="field is-horizontal" style="width: 48%;">
+                        <div class="field-label is-normal">
+                            <label class="label" style="text-align:left;">Vorname</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <input class="input" type="text" id="tfVorname"
+                                    style="width: 150px; margin-left: 42px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal" style="width: 48%;">
+                        <div class="field-label is-normal" style="margin-right: 42px;">
+                            <label class="label" style="text-align:left;">Name</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <input class="input" type="text" id="tfName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-primary" id="btnLogin"
-                    style="margin-left: auto; margin-right: auto;">Anmelden</button>
-                <a href="signup.html" style="font-size: 10pt;margin-top: auto;">Registrieren</a>
+                <button class="button is-primary" id="btnRegister"
+                    style="margin-left: auto; margin-right: auto;">Registrieren</button>
+                <a href="index.html" style="font-size: 10pt;margin-top: auto;">Anmelden</a>
             </footer>
         </form>
     </div>
