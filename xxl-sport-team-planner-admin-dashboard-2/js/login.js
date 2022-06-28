@@ -1,6 +1,3 @@
-$(document).ready(function () {
-
-
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -15,7 +12,8 @@ $(document).ready(function () {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
+    
+$(document).ready(function () {
     const auth = firebase.auth();
 
     //signIN function
