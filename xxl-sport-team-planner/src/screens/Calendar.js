@@ -10,8 +10,16 @@ import { Ionicons } from "@expo/vector-icons";
 import {Alert, StyleSheet, View, TouchableOpacity, day} from 'react-native';
 import {Agenda, DateData, AgendaEntry, AgendaSchedule,CalendarList } from 'react-native-calendars';
 
+const items={
+  '2022-05-22': [{ name: 'item 1 - any js object' }],
+  '2022-05-23': [{ name: 'item 2 - any js object', height: 80 }],
+  '2022-05-24': [],
+  '2022-05-25': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
+}
+const State  = {
+  items: AgendaSchedule}
 
-export default (navigation) =>{
+export default (navigation, Component) =>{
   const { isDarkmode } = useTheme()
   return (
     <Layout>
@@ -26,9 +34,6 @@ export default (navigation) =>{
         }
         leftAction={() => navigation.goBack()}
       />
-      <View>
-        <Text>hallo</Text>
-      </View>
       <Agenda>
           items={items}
           loadItemsForMonth={loadItems}
@@ -42,59 +47,55 @@ export default (navigation) =>{
     </Layout>
 )}
 
-const items={
-  '2022-05-22': [{ name: 'item 1 - any js object' }],
-  '2022-05-23': [{ name: 'item 2 - any js object', height: 80 }],
-  '2022-05-24': [],
-  '2022-05-25': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
-}
-function loadItems(date) { 
-  const items = this.state.items;
-}
+function loadItems (day =DateData){
+      const items = this.state.items || {};
 
-function setTimeout () { 
-  for (let i = -15; i < 85; i++){
-    const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-    const strTime = this.timeToString(time);}
+      setTimeout(() => {
+        for (let i = -15; i < 85; i++) {
+          const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+          const strTime = this.timeToString(time);
 
-    if (!items[strTime]) {
-      items[strTime] = [];
-      
-      const numItems = Math.floor(Math.random() * 3 + 1);
-      for (let j = 0; j < numItems; j++) {
-        items[strTime].push({
-          name: 'Item for ' + strTime + ' #' + j,
-          height: Math.max(50, Math.floor(Math.random() * 150)),
-          day: strTime})}
+          if (!items[strTime]) {
+            items[strTime] = [];
+            
+            const numItems = Math.floor(Math.random() * 3 + 1);
+            for (let j = 0; j < numItems; j++) {
+              items[strTime].push({
+                name: 'Item for ' + strTime + ' #' + j,
+                height: Math.max(50, Math.floor(Math.random() * 150)),
+                day: strTime
+              });
+            }
+          }
+        }
+        
+        const newItems= (AgendaSchedule)= {};
+        Object.keys(items).forEach(key => {
+          newItems[key] = items[key];
+        });
+        this.setState({
+          items: newItems
+        });
+      }, 1000);
     }
-  setState = {items, newItem}}
-
-
-function newItems () {
-  Object.keys(items).forEach(key => {
-  newItems[key] = items[key]})
-  this.setState({items: newItems});
-  }
-
 function renderItem(isFirst) {
   const reservation =AgendaEntry
   const fontSize = isFirst ? 16 : 14;
   const color = isFirst ? 'black' : '#43515c';
 
   return (
-    <TouchableOpacity
+    <View>
       testID={testIDs.agenda.ITEM}
       style={[styles.item, {height: reservation.height}]}
       onPress={() => Alert.alert(reservation.name)}
-    >
       <Text style={{fontSize, color}}>hakki{reservation.name}</Text>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 function renderEmptyDate() { 
   return (
-    <View style={styles.emptyDate}>
+    <View>
       <Text>This is empty date!</Text>
     </View>
   )}
