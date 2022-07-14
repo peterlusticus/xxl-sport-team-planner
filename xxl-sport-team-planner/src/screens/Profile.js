@@ -5,11 +5,14 @@ import { Modal, Portal, Provider } from 'react-native-paper';
 import { getAuth } from 'firebase/auth';
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../navigation/AppNavigator";
+import { stringify } from '@firebase/util';
 
 export default () => {
 	const [events, setEvents] = useState({});
 	const [eventsFromFirebase, setEventsFromFirebase] = useState([]);
 	const [eventModalData, setEventModalData] = useState({});
+	const [eventModalDataTrainerNames, setEventModalDataTrainerNames] = useState({});
+
 	const { currentUser } = getAuth();
 
 	useEffect(() => {
@@ -39,6 +42,15 @@ export default () => {
 
 	function showModal(date) {
 		setEventModalData(searchEventByDate(date.dateString))
+		let trainer = ""
+		const userRef = ref(db, "users");
+		onValue(userRef, (snapshot) => {
+			if (snapshot.exists()) {
+				var data = snapshot.val();
+				trainer = data[eventModalData['trainer']] === undefined ? "" : data[eventModalData['trainer']]['vorname']
+			}
+		});
+		setEventModalDataTrainerNames(trainer)
 		setVisible(true)
 	}
 
@@ -68,12 +80,12 @@ export default () => {
 				/>
 				<Portal>
 					<Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-						<Text>Datum: {eventModalData === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
-						<Text>Uhrzeit von: {eventModalData === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
-						<Text>Uhrzeit bis: {eventModalData === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
-						<Text>Beschreibung: {eventModalData === undefined ? "" : eventModalData['text']}</Text>
-						<Text>Trainer: {eventModalData === undefined ? "" : eventModalData['trainer']}</Text>
-						<Text>Info: {eventModalData === undefined ? "" : eventModalData['info']}</Text>
+						<Text>Datum: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
+						<Text>Uhrzeit von: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
+						<Text>Uhrzeit bis: {eventModalData['end_date'] === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
+						<Text>Beschreibung: {eventModalData['text'] === undefined ? "" : eventModalData['text']}</Text>
+						<Text>Trainer: {eventModalDataTrainerNames}</Text>
+						<Text>Info: {eventModalData['info'] === undefined ? "" : eventModalData['info']}</Text>
 						<Text></Text>
 						<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
 					</Modal>

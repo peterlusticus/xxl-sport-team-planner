@@ -23,18 +23,20 @@ export default function ({ navigation }) {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [vorname, setVorname] = useState("");
+  const [nachname, setNachname] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function register() {
     setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
       set(ref(db, "users/" + userCredential.user.uid), {
-        vorname: "irgendwas",
-        nachname: "todo",
-        email: "todo@todo.de",
-        verhaeltnis: "Festangestellt",
-        sportart: "Klettern",
-        gehalt: "19,90"
+        vorname: vorname,
+        nachname: nachname,
+        email: email,
+        verhaeltnis: "-",
+        sportart: "-",
+        gehalt: "-"
       });
     }).catch(function (
       error
@@ -94,7 +96,7 @@ export default function ({ navigation }) {
             <Text>Email</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
+              placeholder="Emailadresse eingeben"
               value={email}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -103,10 +105,10 @@ export default function ({ navigation }) {
               onChangeText={(text) => setEmail(text)}
             />
 
-            <Text style={{ marginTop: 15 }}>Password</Text>
+            <Text style={{ marginTop: 15 }}>Passwort</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your password"
+              placeholder="Passwort mit mind. 6 Zeichen"
               value={password}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -114,6 +116,29 @@ export default function ({ navigation }) {
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
+
+            <Text style={{ marginTop: 15 }}>Vorname</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Ihr Vorname"
+              value={vorname}
+              autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
+              onChangeText={(text) => setVorname(text)}
+            />
+
+            <Text style={{ marginTop: 15 }}>Nachname</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Ihr Nachname"
+              value={nachname}
+              autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
+              onChangeText={(text) => setNachname(text)}
+            />
+
             <Button
               text={loading ? "Loading" : "Create an account"}
               onPress={() => {
