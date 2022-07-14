@@ -29,9 +29,12 @@ export default function ({ navigation }) {
     setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
       set(ref(db, "users/" + userCredential.user.uid), {
-        firstName: "irgendwas",
-        lastName: "irgendwas",
-        email: "irgendwas",
+        vorname: "irgendwas",
+        nachname: "todo",
+        email: "todo@todo.de",
+        verhaeltnis: "Festangestellt",
+        sportart: "Klettern",
+        gehalt: "19,90"
       });
     }).catch(function (
       error

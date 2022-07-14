@@ -1,46 +1,92 @@
+import React, { useEffect, useState } from 'react';
+import { Layout, TopNav, Text, useTheme, Button } from "react-native-rapi-ui";
+import { CalendarList } from 'react-native-calendars';
+import { Modal, Portal, Provider } from 'react-native-paper';
 import { getAuth } from 'firebase/auth';
-import React, { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { Layout, Section, Text } from 'react-native-rapi-ui';
-import { AuthContext, AuthProvider } from '../provider/AuthProvider';
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../navigation/AppNavigator";
 
-export default function ({ navigation }) {
-	const [username, setUsername] = useState("");
-	const { currentUser } = getAuth()
-	console.log(currentUser.uid)
+export default () => {
+	const [events, setEvents] = useState({});
+	const [eventsFromFirebase, setEventsFromFirebase] = useState([]);
+	const [eventModalData, setEventModalData] = useState({});
+	const { currentUser } = getAuth();
+
 	useEffect(() => {
 		if (currentUser) {
-		  const starCountRef = ref(db, "users/" + currentUser.uid);
-		  onValue(starCountRef, (snapshot) => {
-			if (snapshot.exists()) {
-			  var data = snapshot.val();
-			  setUsername(data.firstName + " " + data.lastName);
-			}
-		  }); 
-		}
-	  }, [currentUser]);
-	return (
-		<Layout>
-			<View
-				style={{
-					flex: 1,
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}
-			>
-				{currentUser && 
-					<Section>
-						<Text>NAME: {username}!</Text>
-						
-						<Text>UUID: {currentUser.uid}</Text>
-					</Section>
+			const eventsRef = ref(db, "courses/0/events");
+			onValue(eventsRef, (snapshot) => {
+				if (snapshot.exists()) {
+					var data = snapshot.val();
+					//Get all events for logged in user and formate it
+					let eventsObj = {}
+					let eventsObjFirebase = []
+					for (let i = 0; i < data.length; i++) {
+						const event = data[i];
+						if (event['trainer'] === currentUser.uid) {
+							eventsObjFirebase.push(data[i])
+							eventsObj[data[i]['start_date'].substring(0, 10)] = { marked: true };
+						}
+					}
+					setEventsFromFirebase(eventsObjFirebase)
+					setEvents(eventsObj);
 				}
-				
+			});
+		}
+	}, [currentUser]);
 
-				
-			</View>
-		</Layout>
-	);
+	const [visible, setVisible] = useState(false);
+
+	function showModal(date) {
+		setEventModalData(searchEventByDate(date.dateString))
+		setVisible(true)
+	}
+
+	function searchEventByDate(date) {
+		for (var i = 0; i < eventsFromFirebase.length; i++) {
+			if (eventsFromFirebase[i]['start_date'].startsWith(date)) {
+				return eventsFromFirebase[i];
+			}
+		}
+	}
+
+	const hideModal = () => setVisible(false);
+	const { isDarkmode } = useTheme()
+	return (
+		<Provider>
+			<Layout>
+				<TopNav
+					middleContent="Team Kalender"
+				/>
+				<CalendarList
+					pastScrollRange={50}
+					futureScrollRange={50}
+					scrollEnabled={true}
+					showScrollIndicator={true}
+					onDayPress={(date) => showModal(date)}
+					markedDates={events}
+				/>
+				<Portal>
+					<Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+						<Text>Datum: {eventModalData === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
+						<Text>Uhrzeit von: {eventModalData === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
+						<Text>Uhrzeit bis: {eventModalData === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
+						<Text>Beschreibung: {eventModalData === undefined ? "" : eventModalData['text']}</Text>
+						<Text>Trainer: {eventModalData === undefined ? "" : eventModalData['trainer']}</Text>
+						<Text>Info: {eventModalData === undefined ? "" : eventModalData['info']}</Text>
+						<Text></Text>
+						<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
+					</Modal>
+				</Portal>
+			</Layout>
+		</Provider>
+	)
 }
+
+function declineTraining(date) {
+	//console.log(date)
+	//searchEventByDate(date)
+	//firebase flag beim event einfügen oder neues objekt "offene termine" erstellen 
+}
+
+const containerStyle = { backgroundColor: 'white', padding: 20 };

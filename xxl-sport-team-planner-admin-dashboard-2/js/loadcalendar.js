@@ -3,6 +3,7 @@ function init() {
         if (snapshot.exists()) {
             const data = snapshot.val();
             let trainerlist = []
+            console.log(trainerlist)
             for (const key in data) {
                 if (Object.hasOwnProperty.call(data, key)) {
                     const trainer = data[key];

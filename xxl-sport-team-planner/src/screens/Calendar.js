@@ -10,7 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Alert, StyleSheet, View, TouchableOpacity, day } from 'react-native';
 import { Agenda, DateData, AgendaEntry, AgendaSchedule, CalendarList } from 'react-native-calendars';
-import { Modal, Portal, Button, Provider } from 'react-native-paper';
+import { Modal, Portal, Provider } from 'react-native-paper';
 import { getAuth } from 'firebase/auth';
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../navigation/AppNavigator";
@@ -21,7 +21,6 @@ const items = {
 const State = {
   items: AgendaSchedule
 }
-
 
 export default (navigation, Component) => {
   const [events, setEvents] = useState({});
@@ -38,8 +37,8 @@ export default (navigation, Component) => {
           console.log(data)
           //Get all events for logged in user and formate it
           setEvents({
-            '2012-05-16': {selected: true, marked: true, selectedColor: 'blue'},
-            '2012-05-17': {marked: true},
+            '2012-05-16': { marked: true },
+            '2012-05-17': { marked: true },
           });
         }
       });
@@ -51,7 +50,7 @@ export default (navigation, Component) => {
   function showModal(date) {
     console.log(date)
     //Get clicked event data
-    setEventModalData(events[1]) 
+    setEventModalData(events[1])
     setVisible(true)
   }
   const hideModal = () => setVisible(false);
@@ -96,7 +95,7 @@ export default (navigation, Component) => {
   )
 }
 
-function declineTraining(date){
+function declineTraining(date) {
   console.log(date)
 }
 

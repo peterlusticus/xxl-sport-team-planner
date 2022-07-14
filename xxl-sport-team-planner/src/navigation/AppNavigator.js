@@ -24,7 +24,7 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyCI9NyA5fWdGdu7QtBpWBoZQqwje9C2LD4",
   authDomain: "xxl-sport-dresden.firebaseapp.com",
-  authDomain: "xxl-sport-dresden.firebaseapp.com",
+  databaseURL: "https://xxl-sport-dresden-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "xxl-sport-dresden",
   storageBucket: "xxl-sport-dresden.appspot.com",
   messagingSenderId: "1093629871818",
