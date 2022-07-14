@@ -22,14 +22,14 @@ import { getDatabase } from "firebase/database";
 
 // Better put your these secret keys in .env file
 const firebaseConfig = {
-  apiKey: "AIzaSyBglnXCOAu9oq-aBSAtNwxjyJangzxkA0k",
-  authDomain: "fir-scheduler-4266d.firebaseapp.com",
-  databaseURL: "https://fir-scheduler-4266d-default-rtdb.firebaseio.com",
-  projectId: "fir-scheduler-4266d",
-  storageBucket: "fir-scheduler-4266d.appspot.com",
-  messagingSenderId: "168776683929",
-  appId: "1:168776683929:web:41ac7e9c44305fc8754308",
-  measurementId: "G-K9CQVBJV8H"
+  apiKey: "AIzaSyCI9NyA5fWdGdu7QtBpWBoZQqwje9C2LD4",
+  authDomain: "xxl-sport-dresden.firebaseapp.com",
+  authDomain: "xxl-sport-dresden.firebaseapp.com",
+  projectId: "xxl-sport-dresden",
+  storageBucket: "xxl-sport-dresden.appspot.com",
+  messagingSenderId: "1093629871818",
+  appId: "1:1093629871818:web:d5aff76d8050dfb5805633",
+  measurementId: "G-D77VJ6FQJ7"
 };
 
 /*if (getApps().length === 0) {

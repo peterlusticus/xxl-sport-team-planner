@@ -24,9 +24,11 @@ function init() {
             ];
             scheduler.init('scheduler_here', new Date(), "month");
             //load courses
+
             firebase.database().ref('courses').on('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
+                    console.log(data)
                     $('#calendar-cours-table').empty();
                     for (let i = 0; i < data.length; i++) {
                         const cours = data[i];
@@ -102,5 +104,4 @@ function init() {
             //no trainer avalible
         }
     });
-
 }
