@@ -26,7 +26,7 @@ $(document).ready(function () {
                                 }
                             }
                         }
-                        $('#trainer-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + trainer.vorname + " " + trainer.nachname + '</td> <td data-label="Kurse">'+coursstring+'</td> <td data-label="Verhältnis">' + trainer.verhaeltnis + '</td> <td data-label="Gehalt">' + trainer.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary jb-modal btn-edit" id='+trainerkey+' data-target="modal-edit-employee" type="button"> <span class="icon"> <i class="mdi mdi-eye"></i> </span> </button> <button class="button is-small is-danger jb-modal" data-target="sample-modal" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
+                        $('#trainer-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + trainer.vorname + " " + trainer.nachname + '</td> <td data-label="Kurse">'+coursstring+'</td> <td data-label="Verhältnis">' + trainer.verhaeltnis + '</td> <td data-label="Gehalt">' + trainer.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary jb-modal btn-edit" id='+trainerkey+' data-target="modal-edit-employee" type="button"> <span class="icon"> <i class="mdi mdi-eye"></i> </span> </button> <button class="button is-small is-danger jb-modal btn-delete" id='+trainerkey+' data-target="modal-delete-employee" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
                     })
                     
                 }
@@ -57,6 +57,23 @@ $(document).ready(function () {
          })
         $('#modal-edit-employee').addClass('is-active');
         
+    })
+
+    $('body').on('click', '.btn-delete', function () {
+        const id = $(this).attr('id');
+        $('#btnDelete').click(function () {
+            firebase.database().ref('users/' + id).set({});
+            firebase.auth().deleteUser(id)
+            .then(() => {
+              console.log('Successfully deleted user');
+            })
+            .catch((error) => {
+              console.log('Error deleting user:', error);
+            });
+            //delete firebase auth from user (only server sided with firebase admin sdk)
+        })
+        $('#modal-delete-employee').addClass('is-active');
+
     })
 
     //Todo: login for other employees
