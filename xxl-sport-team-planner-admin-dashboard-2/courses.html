@@ -19,6 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/logout.js" charset="utf-8"></script>
     <script src="js/loadcourses.js" charset="utf-8"></script>
+    <script src="js/loaduserdata.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -36,13 +37,12 @@
             </div>
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
-                    <div
-                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
                         <a class="navbar-link is-arrowless">
                             <div class="is-user-avatar">
                                 <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
                             </div>
-                            <div class="is-user-name"><span>John Doe</span></div>
+                            <div class="is-user-name"><span id="lblUsername">John Doe</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
                         <div class="navbar-dropdown">
@@ -79,9 +79,9 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label" style="height: 45px;">
-                  <img style="max-height: 100%;padding-top: 8px;padding-left: 40px;" src="img/logo-xxl.png">
+                    <img style="max-height: 100%;padding-top: 8px;padding-left: 40px;" src="img/logo-xxl.png">
                 </div>
-              </div>
+            </div>
             <div class="menu is-menu-main">
                 <p class="menu-label">Allgemein</p>
                 <ul class="menu-list">
@@ -311,7 +311,7 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button jb-modal-close">Abbrechen</button>
                     <button class="button jb-modal-close is-primary" id="btnKursHinzufügenKlettern"
                         style="margin-left: auto;">Hinzufügen</button>
                 </footer>
@@ -362,9 +362,79 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button jb-modal-close">Abbrechen</button>
                     <button class="button jb-modal-close is-primary" id="btnKursHinzufügenBouldern"
                         style="margin-left: auto;">Hinzufügen</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+        </div>
+
+        <div id="modal-edit-cours" class="modal">
+            <div class="modal-background jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Kurs hinzufügen</p>
+                    <button class="delete jb-modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label" style="text-align:left;">Kursname</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <input class="input" id="tfKursname" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content:space-between;">
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Altersklasse</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="text" id="tfAltersklasse"
+                                        style="width: 150px; margin-left: 8px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal" style="width: 48%;">
+                            <div class="field-label is-normal">
+                                <label class="label" style="text-align:left;">Teilnehmerzahl</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <input class="input" type="number" id="tfTeilnehmerzahl">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button jb-modal-close">Abbrechen</button>
+                    <button class="button jb-modal-close is-primary" id="btnSave"
+                        style="margin-left: auto;">Speichern</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+        </div>
+
+        <div id="modal-delete-cours" class="modal">
+            <div class="modal-background jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Kurs entfernen</p>
+                    <button class="delete jb-modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <label>Wollen sie den Kurs wirklich löschen?</label>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button jb-modal-close">Abbrechen</button>
+                    <button class="button jb-modal-close is-danger" id="btnDelete"
+                        style="margin-left: auto;">Löschen</button>
                 </footer>
             </div>
             <button class="modal-close is-large jb-modal-close" aria-label="close"></button>

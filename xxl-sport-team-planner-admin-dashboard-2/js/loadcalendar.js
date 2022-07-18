@@ -29,11 +29,12 @@ function init() {
             firebase.database().ref('courses').on('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    console.log(data)
                     $('#calendar-cours-table').empty();
-                    for (let i = 0; i < data.length; i++) {
-                        const cours = data[i];
-                        $('#calendar-cours-table').append('<tr class="selectable-row" id="' + i + '"> <td class="is-checkbox-cell"> <label class="b-checkbox checkbox"> <input type="checkbox" value="false"> <span class="check"></span> </label> </td> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + cours.name + '</td> </tr>')
+                    for (const key in data) {
+                        if (Object.hasOwnProperty.call(data, key)) {
+                            const cours = data[key];
+                            $('#calendar-cours-table').append('<tr class="selectable-row" id="' + key + '"> <td class="is-checkbox-cell"> <label class="b-checkbox checkbox"> <input type="checkbox" value="false"> <span class="check"></span> </label> </td> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + cours.name + '</td> </tr>')
+                        }
                     }
 
                     const selected_cours = localStorage.getItem("selected-cours")

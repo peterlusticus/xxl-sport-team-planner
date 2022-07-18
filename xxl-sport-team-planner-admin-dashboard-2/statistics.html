@@ -15,8 +15,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/logout.js" charset="utf-8"></script>
+    <script src="js/loaduserdata.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -40,7 +42,7 @@
                             <div class="is-user-avatar">
                                 <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
                             </div>
-                            <div class="is-user-name"><span>John Doe</span></div>
+                            <div class="is-user-name"><span id="lblUsername">John Doe</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
                         <div class="navbar-dropdown">
