@@ -185,6 +185,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
+                                        <th>Sportart</th>
                                         <th>Aktuellle Kurse</th>
                                         <th>Verhältnis</th>
                                         <th>Gehalt</th>
@@ -230,63 +231,20 @@
                 </div>
             </div>
         </section>
-        <div id="modal-edit-employee" class="modal">
+        <div id="sample-modal" class="modal">
             <div class="modal-background jb-modal-close"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Mitarbeiter bearbeiten</p>
+                    <p class="modal-card-title">Confirm action</p>
                     <button class="delete jb-modal-close" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
-                    <div style="display: flex; justify-content:space-between;">
-                        <div class="field is-horizontal" style="width: 48%;">
-                            <div class="field-label is-normal">
-                                <label class="label" style="text-align:left;">Name</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <input class="input" type="text" id="tfName">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field is-horizontal" style="width: 48%;">
-                            <div class="field-label is-normal">
-                                <label class="label" style="text-align:left;">Vorname</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <input class="input" type="text" id="tfVorname">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content:space-between;">
-                        <div class="field is-horizontal" style="width: 48%;">
-                            <div class="field-label is-normal">
-                                <label class="label" style="text-align:left;">Verhältnis</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <input class="input" type="text" id="tfVerhaeltnis">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field is-horizontal" style="width: 48%;">
-                            <div class="field-label is-normal">
-                                <label class="label" style="text-align:left;">Gehalt</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <input class="input"type="number" min="0.00" max="10000.00" step="0.01" id="tfGehalt">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p>This will permanently delete <b>Some Object</b></p>
+                    <p>This is sample modal</p>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button jb-modal-close">Abbrechen</button>
-                    <button class="button jb-modal-close is-primary" id="btnSave"
-                        style="margin-left: auto;">Speichern</button>
+                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button is-danger jb-modal-close">Delete</button>
                 </footer>
             </div>
             <button class="modal-close is-large jb-modal-close" aria-label="close"></button>

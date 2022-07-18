@@ -59,8 +59,7 @@ $(document).ready(function () {
             name: $("#tfKursnameKlettern").val(),
             attendance: $("#tfTeilnehmerzahlKlettern").val(),
             age: $("#tfAltersklasseKlettern").val(),
-            sportart: "Klettern",
-            datum: datum
+            sportart: "Klettern"
         });
     })
 
@@ -71,8 +70,7 @@ $(document).ready(function () {
             name: $("#tfKursnameBouldern").val(),
             attendance: $("#tfTeilnehmerzahlBouldern").val(),
             age: $("#tfAltersklasseBouldern").val(),
-            sportart: "Bouldern",
-            datum: datum
+            sportart: "Bouldern"
         });
     })
 

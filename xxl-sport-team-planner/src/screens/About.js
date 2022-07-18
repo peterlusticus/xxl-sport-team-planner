@@ -1,46 +1,84 @@
-import { getAuth } from 'firebase/auth';
-import React, { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { Layout, Section, Text } from 'react-native-rapi-ui';
-import { AuthContext, AuthProvider } from '../provider/AuthProvider';
-import { onValue, ref, set } from "firebase/database";
-import { db } from "../navigation/AppNavigator";
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView, } from 'react-native';
+import { Layout, Text, Section, SectionContent, TopNav, themeColor , Avatar , SectionImage} from 'react-native-rapi-ui';
+import componentColors from 'react-native-rapi-ui/constants/componentColors';
+
 
 export default function ({ navigation }) {
-	const [username, setUsername] = useState("");
-	const { currentUser } = getAuth()
-	console.log(currentUser.uid)
-	useEffect(() => {
-		if (currentUser) {
-			const starCountRef = ref(db, "users/" + currentUser.uid);
-			onValue(starCountRef, (snapshot) => {
-				if (snapshot.exists()) {
-					var data = snapshot.val();
-					setUsername(data.vorname + " " + data.nachname);
-				}
-			});
-		}
-	}, [currentUser]);
-	return (
-		<Layout>
-			<View
-				style={{
-					flex: 1,
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}
-			>
-				{currentUser &&
-					<Section>
-						<Text>NAME: {username}!</Text>
-
-						<Text>UUID: {currentUser.uid}</Text>
-					</Section>
-				}
-
-
-
-			</View>
-		</Layout>
-	);
+    return ( 
+        <Layout>
+            <TopNav middleContent="Übungen"/>
+            <View >
+            <ScrollView>
+                <Section >
+                    <SectionContent >
+                    <SectionImage source={require('./../../assets/uebungen/pushup.png')} />
+                    <Text style={styles.exercise}>Liegestütze</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                    <SectionImage source={require('./../../assets/uebungen/plank.png')} />
+                    <Text style={styles.exercise}>Plank</Text>
+                    
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/hampelmann.png')} />
+                        <Text style={styles.exercise}>Hampelmänner</Text>
+                    
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/Bergsteiger.png')} />
+                        <Text style={styles.exercise}>Bergsteiger</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/oneArmPlank.png')} />
+                        <Text style={styles.exercise}>Schulter Kraft</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/situp.png')} />
+                        <Text style={styles.exercise}>Sit Up</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/Supermann.png')} />
+                        <Text style={styles.exercise}>Fallschirm Springer</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/burpee.png')} />
+                        <Text style={styles.exercise}>Burpee</Text>
+                    </SectionContent>
+                </Section>
+                <Section>
+                    <SectionContent>
+                        <SectionImage source={require('./../../assets/uebungen/sidePlank.png')} />
+                        <Text style={styles.exercise}>Seitlicher Stütze</Text>
+                    </SectionContent>
+                </Section>
+                
+            </ScrollView>
+            </View>
+        </Layout>
+    );
 }
+const styles = StyleSheet.create({
+    Section:{
+        color:'grey'
+    },
+    exercise: {
+      textAlign:'center',
+      borderRadius:20,
+      margin:20
+    }})
+
