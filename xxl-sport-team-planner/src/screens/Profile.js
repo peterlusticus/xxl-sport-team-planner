@@ -41,17 +41,19 @@ export default () => {
 	const [visible, setVisible] = useState(false);
 
 	function showModal(date) {
-		setEventModalData(searchEventByDate(date.dateString))
-		let trainer = ""
-		const userRef = ref(db, "users");
-		onValue(userRef, (snapshot) => {
-			if (snapshot.exists()) {
-				var data = snapshot.val();
-				trainer = data[eventModalData['trainer']] === undefined ? "" : data[eventModalData['trainer']]['vorname']
-			}
-		});
-		setEventModalDataTrainerNames(trainer)
-		setVisible(true)
+		if (searchEventByDate(date.dateString)) {
+			setEventModalData(searchEventByDate(date.dateString))
+			let trainer = "Du"
+			const userRef = ref(db, "users");
+			onValue(userRef, (snapshot) => {
+				if (snapshot.exists()) {
+					var data = snapshot.val();
+					trainer = data[eventModalData['trainer']] === undefined ? "" : data[eventModalData['trainer']]['vorname']
+				}
+			});
+			setEventModalDataTrainerNames(trainer)
+			setVisible(true)
+		}
 	}
 
 	function searchEventByDate(date) {
