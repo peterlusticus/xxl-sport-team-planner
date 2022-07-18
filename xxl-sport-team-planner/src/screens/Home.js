@@ -6,7 +6,7 @@ import { getAuth } from 'firebase/auth';
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../navigation/AppNavigator";
 import { stringify } from '@firebase/util';
-import { View,  StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 
 export default () => {
@@ -31,22 +31,32 @@ export default () => {
 
 	useEffect(() => {
 		if (currentUser) {
-			const eventsRef = ref(db, "courses/0/events");
+			const eventsRef = ref(db, "courses");
 			onValue(eventsRef, (snapshot) => {
 				if (snapshot.exists()) {
 					var data = snapshot.val();
-					//Get all events for logged in user and formate it
-					let eventsObj = {}
-					let eventsObjFirebase = []
-					for (let i = 0; i < data.length; i++) {
-						const event = data[i];
-						if (event['trainer'] === currentUser.uid) {
-							eventsObjFirebase.push(data[i])
-							eventsObj[data[i]['start_date'].substring(0, 10)] = { marked: true };
+					for (const key in data) {
+						if (Object.hasOwnProperty.call(data, key)) {
+							const cours = data[key];
+							//Get all events for logged in user and formate it
+							let eventsObj = {}
+							let eventsObjFirebase = []
+							for (const key in cours.events) {
+								if (Object.hasOwnProperty.call(cours.events, key)) {
+									const event = cours.events[key];
+									if (event['trainer'] === currentUser.uid) {
+										eventsObjFirebase.push(event)
+										eventsObj[event['start_date'].substring(0, 10)] = { marked: true };
+										console.log(event)
+									}
+								}
+								setEventsFromFirebase(eventsObjFirebase)
+								setEvents(eventsObj);
+							}
 						}
 					}
-					setEventsFromFirebase(eventsObjFirebase)
-					setEvents(eventsObj);
+					
+					
 				}
 			});
 		}
@@ -68,9 +78,9 @@ export default () => {
 			setEventModalDataTrainerNames(trainer)
 			setVisible(true)
 		}
-		else{
+		else {
 		}
-		
+
 
 	}
 
@@ -98,11 +108,11 @@ export default () => {
 					onDayPress={(date) => showModal(date)}
 					markedDates={events}
 				/>
-				
-		
+
+
 				<Portal>
 					<Modal visible={visible} onDismiss={hideModal}>
-						<View  style={styles.modalView}>
+						<View style={styles.modalView}>
 							<View style={styles.Text}>
 								<Text>Datum: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
 							</View>
@@ -121,8 +131,8 @@ export default () => {
 								<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
 							</View>
 						</View>
-							
-						</Modal>
+
+					</Modal>
 				</Portal>
 			</Layout>
 		</Provider>
@@ -139,33 +149,33 @@ const containerStyle = { backgroundColor: 'white', padding: 20 };
 
 const styles = StyleSheet.create({
 	centeredView: {
-	  flex: 1,
-	  justifyContent: "center",
-	  alignItems: "center",
-	  marginTop: 22
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22
 	},
 	modalView: {
-	  margin: 20,
-	  backgroundColor: "white",
-	  borderRadius: 20,
-	  padding: 35,
-	  alignItems: "center",
-	  shadowColor: "#000",
-	  shadowOffset: {
-		width: 0,
-		height: 2
-	  },
-	  shadowOpacity: 0.25,
-	  shadowRadius: 4,
-	  elevation: 5
+		margin: 20,
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding: 35,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5
 	},
 	textStyle: {
-	  color: "white",
-	  fontWeight: "bold",
-	  textAlign: "center"
+		color: "white",
+		fontWeight: "bold",
+		textAlign: "center"
 	},
 	modalText: {
-	  marginBottom: 15,
-	  textAlign: "center"
+		marginBottom: 15,
+		textAlign: "center"
 	},
-  });
+});
