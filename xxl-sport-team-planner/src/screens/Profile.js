@@ -6,6 +6,8 @@ import { getAuth } from 'firebase/auth';
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../navigation/AppNavigator";
 import { stringify } from '@firebase/util';
+import { View,  StyleSheet } from 'react-native';
+
 
 export default () => {
 	const [events, setEvents] = useState({});
@@ -14,6 +16,18 @@ export default () => {
 	const [eventModalDataTrainerNames, setEventModalDataTrainerNames] = useState({});
 
 	const { currentUser } = getAuth();
+
+
+	/*const moment = require('moment');
+	let now = moment().format('dddd Do MMMM');
+	console.log(now);
+	let Datum = moment().format('Do MMMM YYYY');
+	let UhrzeitVon = moment().format(' h:mm:ss a');
+	let UhrzeitBis = moment().format(' h:mm:ss a');
+	var Beschreibung = "Kindertraining";
+	var Trainer = "";
+	var info = "lore ipsum denn die welt geht auf scherben"*/
+
 
 	useEffect(() => {
 		if (currentUser) {
@@ -54,6 +68,10 @@ export default () => {
 			setEventModalDataTrainerNames(trainer)
 			setVisible(true)
 		}
+		else{
+		}
+		
+
 	}
 
 	function searchEventByDate(date) {
@@ -80,17 +98,30 @@ export default () => {
 					onDayPress={(date) => showModal(date)}
 					markedDates={events}
 				/>
+				
+		
 				<Portal>
-					<Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-						<Text>Datum: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
-						<Text>Uhrzeit von: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
-						<Text>Uhrzeit bis: {eventModalData['end_date'] === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
-						<Text>Beschreibung: {eventModalData['text'] === undefined ? "" : eventModalData['text']}</Text>
-						<Text>Trainer: {eventModalDataTrainerNames}</Text>
-						<Text>Info: {eventModalData['info'] === undefined ? "" : eventModalData['info']}</Text>
-						<Text></Text>
-						<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
-					</Modal>
+					<Modal visible={visible} onDismiss={hideModal}>
+						<View  style={styles.modalView}>
+							<View style={styles.Text}>
+								<Text>Datum: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
+							</View>
+							<View >
+								<Text size='h1'>{eventModalData['text'] === undefined ? "" : eventModalData['text']}</Text>
+							</View>
+							<View>
+								<Text>Von: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
+								<Text>Bis: {eventModalData['end_date'] === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
+							</View>
+							<View>
+								<Text>Info: {eventModalData['info'] === undefined ? "" : eventModalData['info']}</Text>
+							</View>
+							<View>
+								<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
+							</View>
+						</View>
+							
+						</Modal>
 				</Portal>
 			</Layout>
 		</Provider>
@@ -104,3 +135,36 @@ function declineTraining(date) {
 }
 
 const containerStyle = { backgroundColor: 'white', padding: 20 };
+
+const styles = StyleSheet.create({
+	centeredView: {
+	  flex: 1,
+	  justifyContent: "center",
+	  alignItems: "center",
+	  marginTop: 22
+	},
+	modalView: {
+	  margin: 20,
+	  backgroundColor: "white",
+	  borderRadius: 20,
+	  padding: 35,
+	  alignItems: "center",
+	  shadowColor: "#000",
+	  shadowOffset: {
+		width: 0,
+		height: 2
+	  },
+	  shadowOpacity: 0.25,
+	  shadowRadius: 4,
+	  elevation: 5
+	},
+	textStyle: {
+	  color: "white",
+	  fontWeight: "bold",
+	  textAlign: "center"
+	},
+	modalText: {
+	  marginBottom: 15,
+	  textAlign: "center"
+	}
+  });
