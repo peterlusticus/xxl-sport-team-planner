@@ -14,6 +14,7 @@ export default () => {
 	const [eventModalDataTrainerNames, setEventModalDataTrainerNames] = useState({});
 
 	const { currentUser } = getAuth();
+	const {moment} = Boolean;
 
 	useEffect(() => {
 		if (currentUser) {
