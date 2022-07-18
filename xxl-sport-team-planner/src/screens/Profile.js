@@ -1,105 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, TopNav, Text, useTheme, Button } from "react-native-rapi-ui";
-import { CalendarList } from 'react-native-calendars';
-import { Modal, Portal, Provider } from 'react-native-paper';
-import { getAuth } from 'firebase/auth';
-import { onValue, ref, set } from "firebase/database";
-import { db } from "../navigation/AppNavigator";
-import { stringify } from '@firebase/util';
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Layout, Text, Section, SectionContent, TopNav, themeColor , Avatar , SectionImage, Button} from 'react-native-rapi-ui';
+import componentColors from 'react-native-rapi-ui/constants/componentColors';
 
-export default () => {
-	const [events, setEvents] = useState({});
-	const [eventsFromFirebase, setEventsFromFirebase] = useState([]);
-	const [eventModalData, setEventModalData] = useState({});
-	const [eventModalDataTrainerNames, setEventModalDataTrainerNames] = useState({});
 
-	const { currentUser } = getAuth();
-	const {moment} = Boolean;
 
-	useEffect(() => {
-		if (currentUser) {
-			const eventsRef = ref(db, "courses/0/events");
-			onValue(eventsRef, (snapshot) => {
-				if (snapshot.exists()) {
-					var data = snapshot.val();
-					//Get all events for logged in user and formate it
-					let eventsObj = {}
-					let eventsObjFirebase = []
-					for (let i = 0; i < data.length; i++) {
-						const event = data[i];
-						if (event['trainer'] === currentUser.uid) {
-							eventsObjFirebase.push(data[i])
-							eventsObj[data[i]['start_date'].substring(0, 10)] = { marked: true };
-						}
-					}
-					setEventsFromFirebase(eventsObjFirebase)
-					setEvents(eventsObj);
-				}
-			});
-		}
-	}, [currentUser]);
+export default function ({ navigation }) {
+    return ( 
+        <Layout>
+            <TopNav middleContent="Profil"/>
+            <ScrollView>
+				<Section style={styles.modalView}>
+					<SectionImage source={require('./../../assets/logo.png')}></SectionImage>
+						<SectionContent style={styles.modalView}>
+						<Text size='h3' style={styles.Text}>Hallo Trainer </Text>
+					</SectionContent>
+				</Section>
+				<View style={styles.modalView}>
+					<View style={{flex:1}}>
+					
+						<Text size='h3'>
+							Hier kannst du deine Profil Einstellugen bearbeiten
+						</Text>
+					</View>
+				</View>
+				<View style={styles.modalView}>
+					<View style={{flex:1}}>
+					
+						<Text>
+							Das Team:
+						</Text>
+					</View>
+					<View>
+						<Text size='h3'>
+							Micha Stefan Christof Camila Sindy Robert Bernd Uli Henry Uli2
+						</Text>
+					</View>
+				</View>
+				<View style={styles.modalView}>
+					<View style={{flex:1}}>
+					
+						<Text>
+							Geleistete Stunden diesen Monat
+						</Text>
+					</View>
+					<View>
+						<Text size='h3'>
+							42
+						</Text>
+					</View>
+				</View>
+				<View>
+					<Button text='Eistellungen'></Button>
+				</View>
 
-	const [visible, setVisible] = useState(false);
-
-	function showModal(date) {
-		setEventModalData(searchEventByDate(date.dateString))
-		let trainer = ""
-		const userRef = ref(db, "users");
-		onValue(userRef, (snapshot) => {
-			if (snapshot.exists()) {
-				var data = snapshot.val();
-				trainer = data[eventModalData['trainer']] === undefined ? "" : data[eventModalData['trainer']]['vorname']
-			}
-		});
-		setEventModalDataTrainerNames(trainer)
-		setVisible(true)
-	}
-
-	function searchEventByDate(date) {
-		for (var i = 0; i < eventsFromFirebase.length; i++) {
-			if (eventsFromFirebase[i]['start_date'].startsWith(date)) {
-				return eventsFromFirebase[i];
-			}
-		}
-	}
-
-	const hideModal = () => setVisible(false);
-	const { isDarkmode } = useTheme()
-	return (
-		<Provider>
-			<Layout>
-				<TopNav
-					middleContent="Team Kalender"
-				/>
-				<CalendarList
-					pastScrollRange={50}
-					futureScrollRange={50}
-					scrollEnabled={true}
-					showScrollIndicator={true}
-					onDayPress={(date) => showModal(date)}
-					markedDates={events}
-				/>
-				<Portal>
-					<Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-						<Text>Datum: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(0, 10)}</Text>
-						<Text>Uhrzeit von: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
-						<Text>Uhrzeit bis: {eventModalData['end_date'] === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
-						<Text>Beschreibung: {eventModalData['text'] === undefined ? "" : eventModalData['text']}</Text>
-						<Text>Trainer: {eventModalDataTrainerNames}</Text>
-						<Text>Info: {eventModalData['info'] === undefined ? "" : eventModalData['info']}</Text>
-						<Text></Text>
-						<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
-					</Modal>
-				</Portal>
-			</Layout>
-		</Provider>
-	)
+            </ScrollView>
+        </Layout>
+    );
 }
+const styles = StyleSheet.create({
+    Section:{
+        color:'grey'
+    },
+    exercise: {
+      textAlign:'center',
+      borderRadius:20,
+      margin:20
+    },
+    modalView: {
+        margin: 10,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        }},
+	Text:{
+		textAlign: "center",
+		marginBottom: 10,
+	},
+    })
 
-function declineTraining(date) {
-	//console.log(date)
-	//searchEventByDate(date)
-	//firebase flag beim event einfügen oder neues objekt "offene termine" erstellen 
-}
-
-const containerStyle = { backgroundColor: 'white', padding: 20 };
