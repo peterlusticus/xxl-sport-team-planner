@@ -119,13 +119,17 @@ export default () => {
 							<View >
 								<Text size='h1'>{eventModalData['text'] === undefined ? "" : eventModalData['text']}</Text>
 							</View>
-							<View> <Text>______________</Text></View>
+							
 							<View>
+							<Text></Text>
 								<Text>Von: {eventModalData['start_date'] === undefined ? "" : eventModalData['start_date'].substring(11)}</Text>
 								<Text>Bis: {eventModalData['end_date'] === undefined ? "" : eventModalData['end_date'].substring(11)}</Text>
 							</View>
 							<View>
+							<Text></Text>
 								<Text>Info: {eventModalData['info'] === undefined ? "" : eventModalData['info']}</Text>
+								<Text></Text>
+
 							</View>
 							<View>
 								<Button onPress={declineTraining(eventModalData === undefined ? "" : eventModalData['start_date'])} text="Training absagen" ></Button>
