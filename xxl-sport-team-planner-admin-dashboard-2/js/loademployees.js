@@ -4,7 +4,7 @@ $(document).ready(function () {
     firebase.database().ref('users').on('value', (snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
-           $('#trainer-table').empty();
+            $('#trainer-table').empty();
             for (const trainerkey in data) {
                 if (Object.hasOwnProperty.call(data, trainerkey)) {
                     const trainer = data[trainerkey];
@@ -14,37 +14,41 @@ $(document).ready(function () {
                         for (const courskey in snapshot.val()) {
                             if (Object.hasOwnProperty.call(snapshot.val(), courskey)) {
                                 const cours = snapshot.val()[courskey];
-                                for (let i = 0; i < cours['events'].length; i++) {
-                                    const event = cours['events'][i];
-                                    if (event['trainer'] === trainerkey ) {
-                                        let comma = ""
-                                        if(coursstring !== ""){
-                                            comma = ", "
+                                if (Object.hasOwnProperty.call(cours, 'events')) {
+                                    for (let i = 0; i < cours['events'].length; i++) {
+                                        const event = cours['events'][i];
+                                        if (event['trainer'] === trainerkey) {
+                                            if (!coursstring.includes(cours['name'])) {
+                                                let comma = ""
+                                                if (coursstring !== "") {
+                                                    comma = ", "
+                                                }
+                                                coursstring = coursstring + comma + cours['name']
+                                            }
                                         }
-                                        coursstring = coursstring + comma + cours['name']
                                     }
                                 }
                             }
                         }
-                        $('#trainer-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + trainer.vorname + " " + trainer.nachname + '</td> <td data-label="Kurse">'+coursstring+'</td> <td data-label="Verhältnis">' + trainer.verhaeltnis + '</td> <td data-label="Gehalt">' + trainer.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary jb-modal btn-edit" id='+trainerkey+' data-target="modal-edit-employee" type="button"> <span class="icon"> <i class="mdi mdi-eye"></i> </span> </button> <button class="button is-small is-danger jb-modal btn-delete" id='+trainerkey+' data-target="modal-delete-employee" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
+                        $('#trainer-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + trainer.vorname + " " + trainer.nachname + '</td> <td data-label="Kurse">' + coursstring + '</td> <td data-label="Verhältnis">' + trainer.verhaeltnis + '</td> <td data-label="Gehalt">' + trainer.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary jb-modal btn-edit" id=' + trainerkey + ' data-target="modal-edit-employee" type="button"> <span class="icon"> <i class="mdi mdi-eye"></i> </span> </button> <button class="button is-small is-danger jb-modal btn-delete" id=' + trainerkey + ' data-target="modal-delete-employee" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
                     })
-                    
+
                 }
             }
-        }else{
+        } else {
             $("#trainer-table-wrapper").remove();
         }
     });
-    $('body').on('click', '.btn-edit', function(){
+    $('body').on('click', '.btn-edit', function () {
         const id = $(this).attr('id')
-        firebase.database().ref('users/'+id).once('value').then(function (snapshot) {
+        firebase.database().ref('users/' + id).once('value').then(function (snapshot) {
             console.log(snapshot.val())
             $("#tfName").val(snapshot.val().nachname)
             $("#tfVorname").val(snapshot.val().vorname)
             $("#tfGehalt").val(snapshot.val().gehalt)
             $("#tfVerhaeltnis").val(snapshot.val().verhaeltnis)
 
-            $('#btnSave').click(function(){
+            $('#btnSave').click(function () {
                 console.log(id)
                 firebase.database().ref('users/' + id).set({
                     nachname: $("#tfName").val(),
@@ -53,10 +57,10 @@ $(document).ready(function () {
                     verhaeltnis: $("#tfVerhaeltnis").val(),
                 });
             })
-            
-         })
+
+        })
         $('#modal-edit-employee').addClass('is-active');
-        
+
     })
 
     $('body').on('click', '.btn-delete', function () {
@@ -64,12 +68,12 @@ $(document).ready(function () {
         $('#btnDelete').click(function () {
             firebase.database().ref('users/' + id).set({});
             firebase.auth().deleteUser(id)
-            .then(() => {
-              console.log('Successfully deleted user');
-            })
-            .catch((error) => {
-              console.log('Error deleting user:', error);
-            });
+                .then(() => {
+                    console.log('Successfully deleted user');
+                })
+                .catch((error) => {
+                    console.log('Error deleting user:', error);
+                });
             //delete firebase auth from user (only server sided with firebase admin sdk)
         })
         $('#modal-delete-employee').addClass('is-active');
@@ -87,7 +91,7 @@ $(document).ready(function () {
                     $('#employees-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + employee.vorname + " " + employee.nachname + '</td> <td data-label="Bereich">' + employee.bereich + '</td> <td data-label="Verhältnis">' + employee.verhaeltnis + '</td> <td data-label="Gehalt">' + employee.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary" type="button"> <span class="icon"><i class="mdi mdi-eye"></i></span> </button> <button class="button is-small is-danger jb-modal" data-target="sample-modal" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
                 }
             }
-        } else{
+        } else {
             $("#employee-table-wrapper").remove();
         }
     });

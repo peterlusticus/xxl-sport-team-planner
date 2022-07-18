@@ -21,9 +21,14 @@ function init() {
             scheduler.config.lightbox.sections = [
                 { name: "description", height: 50, map_to: "text", type: "textarea", focus: true },
                 { name: "Trainer", height: 30, map_to: "trainer", type: "select", options: trainerlist },
+                { name: "Info", height: 100, map_to: "info", type: "textarea" },
                 { name: "time", height: 72, type: "time", map_to: "auto" }
             ];
+            scheduler.config.responsive_lightbox = true;
             scheduler.init('scheduler_here', new Date(), "month");
+            document.querySelector(".add_event_button").addEventListener("click", function () {
+                scheduler.addEventNow();
+            });
             //load courses
 
             firebase.database().ref('courses').on('value', (snapshot) => {
@@ -58,17 +63,20 @@ function init() {
                     scheduler.clearAll();
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        for (let i = 0; i < data.length; i++) {
-                            const event = data[i];
-                            console.log(event)
-                            scheduler.parse([
-                                {
-                                    text: event.text,
-                                    start_date: event.start_date,
-                                    end_date: event.end_date,
-                                    trainer: event.trainer
-                                },
-                            ], "json");
+                        for (const key in data) {
+                            if (Object.hasOwnProperty.call(data, key)) {
+                                const event = data[key];
+                                console.log(event)
+                                scheduler.parse([
+                                    {
+                                        text: event.text,
+                                        start_date: event.start_date,
+                                        end_date: event.end_date,
+                                        info: event.info,
+                                        trainer: event.trainer
+                                    },
+                                ], "json");
+                            }
                         }
                     }
                 });
@@ -82,15 +90,12 @@ function init() {
                 switch (action) {
                     case "create":
                         firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events').limitToLast(1).once('value').then(function (snapshot) {
-                            let event_num = 0
-                            if (snapshot.exists()) {
-                                event_num = parseInt(Object.keys(snapshot.val())[0]) + 1
-                            }
-                            firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events/' + event_num).set({
+                            firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events/' + uuidv4()).set({
                                 text: data.text,
                                 start_date: data.start_date,
                                 end_date: data.end_date,
-                                trainer: data.trainer
+                                trainer: data.trainer,
+                                info: data.info
                             });
                         });
 
@@ -98,12 +103,28 @@ function init() {
 
                         break;
                     case "delete":
+                        firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events').limitToLast(1).once('value').then(function (snapshot) {
 
+                            let event_num = 0
+                            if (snapshot.exists()) {
+                                event_num = Object.keys(snapshot.val())[0]
+                                console.log(snapshot.val())
+                                console.log(event_num)
+
+                            }
+                            firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events/' + event_num).set({})
+                        })
                         break;
                 }
             });
         } else {
             //no trainer avalible
+        }
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
         }
     });
 }

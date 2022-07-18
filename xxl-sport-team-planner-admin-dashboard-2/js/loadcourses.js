@@ -54,12 +54,15 @@ $(document).ready(function () {
 
     $("#btnKursHinzufügenKlettern").click(function () {
         const d = new Date()
-        const datum = d.getDate() + "." + d.getMonth() + "." + d.getFullYear();
+        //Todo month
+        const month = d.getMonth() +1
+        const datum = d.getDate() + "." + month + "." + d.getFullYear();
         firebase.database().ref('courses/' + uuidv4()).set({
             name: $("#tfKursnameKlettern").val(),
             attendance: $("#tfTeilnehmerzahlKlettern").val(),
             age: $("#tfAltersklasseKlettern").val(),
-            sportart: "Klettern"
+            sportart: "Klettern",
+            datum: datum,
         });
     })
 
@@ -70,7 +73,8 @@ $(document).ready(function () {
             name: $("#tfKursnameBouldern").val(),
             attendance: $("#tfTeilnehmerzahlBouldern").val(),
             age: $("#tfAltersklasseBouldern").val(),
-            sportart: "Bouldern"
+            sportart: "Bouldern",
+            datum: datum,
         });
     })
 
