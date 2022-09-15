@@ -1,4 +1,8 @@
 function init() {
+    $('.dhx_form_repeat').hide()
+    scheduler.plugins({
+        recurring: true
+    });
     firebase.database().ref('users').on('value', (snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
@@ -22,6 +26,7 @@ function init() {
                 { name: "description", height: 50, map_to: "text", type: "textarea", focus: true },
                 { name: "Trainer", height: 30, map_to: "trainer", type: "select", options: trainerlist },
                 { name: "Info", height: 100, map_to: "info", type: "textarea" },
+                { name:"recurring", type:"recurring", map_to:"rec_type", button:"recurring", form:"my_recurring_form"},
                 { name: "time", height: 72, type: "time", map_to: "auto" }
             ];
             scheduler.config.responsive_lightbox = true;
@@ -29,8 +34,8 @@ function init() {
             document.querySelector(".add_event_button").addEventListener("click", function () {
                 scheduler.addEventNow();
             });
-            //load courses
 
+            //load courses
             firebase.database().ref('courses').on('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
@@ -63,19 +68,13 @@ function init() {
                     scheduler.clearAll();
                     if (snapshot.exists()) {
                         const data = snapshot.val();
+                        console.log(data)
+
                         for (const key in data) {
                             if (Object.hasOwnProperty.call(data, key)) {
                                 const event = data[key];
                                 console.log(event)
-                                scheduler.parse([
-                                    {
-                                        text: event.text,
-                                        start_date: event.start_date,
-                                        end_date: event.end_date,
-                                        info: event.info,
-                                        trainer: event.trainer
-                                    },
-                                ], "json");
+                                scheduler.parse([event.data], "json");
                             }
                         }
                     }
@@ -90,12 +89,18 @@ function init() {
                 switch (action) {
                     case "create":
                         firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events').limitToLast(1).once('value').then(function (snapshot) {
+                            console.log(data)
                             firebase.database().ref('courses/' + localStorage.getItem("selected-cours") + '/events/' + uuidv4()).set({
-                                text: data.text,
+                                data
+                                /*text: data.text,
                                 start_date: data.start_date,
                                 end_date: data.end_date,
+                                rec_type: data.rec_type, //Todo: nur rec type mit reingeben, wenn es auch angeklickt wurde bzw zerlegen
+                                event_length:  data.event_length,
                                 trainer: data.trainer,
-                                info: data.info
+                                info: data.info,
+                                event_pid: data.event_pid,
+                                id: data.id,*/
                             });
                         });
 
