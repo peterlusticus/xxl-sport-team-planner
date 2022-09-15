@@ -91,12 +91,12 @@ export default function ({ navigation }) {
                 padding: 30,
               }}
             >
-              Register
+              Registrieren
             </Text>
-            <Text>Email</Text>
+            <Text>E-Mail</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Emailadresse eingeben"
+              placeholder="E-Mail Adresse eingeben"
               value={email}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -140,7 +140,7 @@ export default function ({ navigation }) {
             />
 
             <Button
-              text={loading ? "Loading" : "Create an account"}
+              text={loading ? "Loading" : "Registrieren"}
               onPress={() => {
                 register();
               }}
@@ -158,7 +158,7 @@ export default function ({ navigation }) {
                 justifyContent: "center",
               }}
             >
-              <Text size="md">Already have an account?</Text>
+              <Text size="md">Du hast bereits einen Account?</Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Login");
@@ -171,7 +171,7 @@ export default function ({ navigation }) {
                     marginLeft: 5,
                   }}
                 >
-                  Login here
+                  Hier anmelden
                 </Text>
               </TouchableOpacity>
             </View>

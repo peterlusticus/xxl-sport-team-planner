@@ -80,10 +80,10 @@ export default function ({ navigation }) {
             >
               Login
             </Text>
-            <Text>Email</Text>
+            <Text>E-Mail</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
+              placeholder="E-Mail Adresse eingeben"
               value={email}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -92,10 +92,10 @@ export default function ({ navigation }) {
               onChangeText={(text) => setEmail(text)}
             />
 
-            <Text style={{ marginTop: 15 }}>Password</Text>
+            <Text style={{ marginTop: 15 }}>Passwort</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your password"
+              placeholder="Passwort eingeben"
               value={password}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -104,7 +104,7 @@ export default function ({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
             <Button
-              text={loading ? "Loading" : "Continue"}
+              text={loading ? "Loading" : "Einloggen"}
               onPress={() => {
                 login();
               }}
@@ -122,7 +122,7 @@ export default function ({ navigation }) {
                 justifyContent: "center",
               }}
             >
-              <Text size="md">Don't have an account?</Text>
+              <Text size="md">Du hast noch keinen Account?</Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Register");
@@ -135,7 +135,7 @@ export default function ({ navigation }) {
                     marginLeft: 5,
                   }}
                 >
-                  Register here
+                  Hier Registrieren
                 </Text>
               </TouchableOpacity>
             </View>
@@ -153,7 +153,7 @@ export default function ({ navigation }) {
                 }}
               >
                 <Text size="md" fontWeight="bold">
-                  Forget password
+                  Passwort vergessen
                 </Text>
               </TouchableOpacity>
             </View>

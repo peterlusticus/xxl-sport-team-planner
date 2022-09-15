@@ -15,15 +15,18 @@ $(document).ready(function () {
                             if (Object.hasOwnProperty.call(snapshot.val(), courskey)) {
                                 const cours = snapshot.val()[courskey];
                                 if (Object.hasOwnProperty.call(cours, 'events')) {
-                                    for (let i = 0; i < cours['events'].length; i++) {
-                                        const event = cours['events'][i];
-                                        if (event['trainer'] === trainerkey) {
-                                            if (!coursstring.includes(cours['name'])) {
-                                                let comma = ""
-                                                if (coursstring !== "") {
-                                                    comma = ", "
+                                    for (const key in cours['events']) {
+                                        if (Object.hasOwnProperty.call(cours['events'], key)) {
+                                            const event = cours['events'][key];
+                                            if (event['trainer'] === trainerkey) {
+                                                console.log("heey")
+                                                if (!coursstring.includes(cours['name'])) {
+                                                    let comma = ""
+                                                    if (coursstring !== "") {
+                                                        comma = ", "
+                                                    }
+                                                    coursstring = coursstring + comma + cours['name']
                                                 }
-                                                coursstring = coursstring + comma + cours['name']
                                             }
                                         }
                                     }
@@ -42,14 +45,12 @@ $(document).ready(function () {
     $('body').on('click', '.btn-edit', function () {
         const id = $(this).attr('id')
         firebase.database().ref('users/' + id).once('value').then(function (snapshot) {
-            console.log(snapshot.val())
             $("#tfName").val(snapshot.val().nachname)
             $("#tfVorname").val(snapshot.val().vorname)
             $("#tfGehalt").val(snapshot.val().gehalt)
             $("#tfVerhaeltnis").val(snapshot.val().verhaeltnis)
 
             $('#btnSave').click(function () {
-                console.log(id)
                 firebase.database().ref('users/' + id).set({
                     nachname: $("#tfName").val(),
                     vorname: $("#tfVorname").val(),
@@ -97,7 +98,6 @@ $(document).ready(function () {
     });
 
     $("#btnKursHinzufügen").click(function () {
-        console.log(num)
         firebase.database().ref('courses/' + num).set({
             name: $("#tfKursname").val(),
             attendance: $("#tfTeilnehmerzahl").val(),
