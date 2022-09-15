@@ -81,27 +81,19 @@ $(document).ready(function () {
 
     })
 
-    //Todo: login for other employees
-    firebase.database().ref('otheruser').on('value', (snapshot) => {
-        if (snapshot.exists()) {
-            const data = snapshot.val();
-            $('#employees-table').empty();
-            for (const key in data) {
-                if (Object.hasOwnProperty.call(data, key)) {
-                    const employee = data[key];
-                    $('#employees-table').append('<tr> <td class="is-image-cell"> <div class="image"> <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="is-rounded"> </div> </td> <td data-label="Name">' + employee.vorname + " " + employee.nachname + '</td> <td data-label="Bereich">' + employee.bereich + '</td> <td data-label="Verhältnis">' + employee.verhaeltnis + '</td> <td data-label="Gehalt">' + employee.gehalt + '€/h </td> <td class="is-actions-cell"> <div class="buttons is-right"> <button class="button is-small is-primary" type="button"> <span class="icon"><i class="mdi mdi-eye"></i></span> </button> <button class="button is-small is-danger jb-modal" data-target="sample-modal" type="button"> <span class="icon"><i class="mdi mdi-trash-can"></i></span> </button> </div> </td> </tr>')
-                }
-            }
-        } else {
-            $("#employee-table-wrapper").remove();
-        }
-    });
-
-    $("#btnKursHinzufügen").click(function () {
-        firebase.database().ref('courses/' + num).set({
-            name: $("#tfKursname").val(),
-            attendance: $("#tfTeilnehmerzahl").val(),
-            age: $("#tfAltersklasse").val()
-        });
+    $('#btnAdd').click(function () {
+        console.log($("#tfName").val())
+                firebase.database().ref('users/' + uuidv4()).set({
+                    nachname: $("#tfNameAdd").val(),
+                    vorname: $("#tfVornameAdd").val(),
+                    gehalt: $("#tfGehaltAdd").val(),
+                    verhaeltnis: $("#tfVerhaeltnisAdd").val(),
+                });
     })
+    function uuidv4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
 });
+
