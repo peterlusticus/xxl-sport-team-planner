@@ -56,7 +56,7 @@ $(document).ready(function () {
             firebase.database().ref('adminuser/').once('value').then(function (snapshot) {
                 if (snapshot.exists()) {
                     if (Object(snapshot.val()).hasOwnProperty(user.uid)) {
-                        window.location.href = "home.html"
+                        window.location.href = "courses.html"
                     }
                 }
             });
